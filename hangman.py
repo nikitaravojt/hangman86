@@ -10,34 +10,33 @@ class Hangman:
         # self.num_unguessed_letters = len([letter for letter not in ])
 
 
-
-
-
-
-
-guesses = 5
-
-def guess_input():
-    while True:
-        user_guess = input("Your guess: ").lower()
-        if user_guess.isalpha() and len(user_guess) == 1:
-            return user_guess
+    def check_guess(self, guess):
+        if guess in self.word:
+            print(f"Good guess! '{guess} is in the word.'")
+            for idx, letter in enumerate(self.word):
+                if guess == letter:
+                    self.word_guessed[idx] = guess
+            # reduce num_letters by 1?
         else:
-            print("Invalid letter. Please, enter a single alphabetical character.")
+            print(f"Wrong guess! '{guess}' is not in the word.")
+            self.num_lives -= 1
+            print(f"You have {self.num_lives} guesses remaining.")
 
 
-
-def check_guess(word, guess, guesses):
-    if guess in word:
-        print(f"Good guess! '{guess} is in the word.'")
-    else:
-        print(f"Wrong guess! '{guess}' is not in the word.")
-        guesses -= 1
+    def ask_for_input(self):
+        while True:
+            user_guess = input("Your guess: ").lower()
+            if not user_guess.isalpha() or len(user_guess) != 1:
+                print("Invalid letter. Please, enter a single alphabetical character.")
+            elif user_guess in self.list_of_guesses:
+                print("You already tried that letter")
+            else:
+                self.check_guess(user_guess)
+                self.list_of_guesses.append(user_guess)
 
 
 
 word_list = ["apple", "banana", "kiwi", "passionfruit", "lychee"]
-word = random.choice(word_list)
-guess1 = guess_input()
-print(guess1)
-check_guess(word, guess1, guesses)
+game1 = Hangman(word_list=word_list)
+print('f')
+# game1.ask_for_input()
