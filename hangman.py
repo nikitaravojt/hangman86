@@ -11,6 +11,11 @@ class Hangman:
 
 
     def check_guess(self, guess):
+        """Checks if the guessed letter "guess" (str) is in the word.
+        If True, the corresponding underscore(s) in word_guessed are replaced
+        with the letter. Otheriwse, the total number of allowed guesses is 
+        reduced by 1 (i.e., num_lives reduced by 1)."""
+
         if guess in self.word:
             print(f"Good guess! '{guess} is in the word.'")
             for idx, letter in enumerate(self.word):
@@ -24,6 +29,11 @@ class Hangman:
 
 
     def ask_for_input(self):
+        """Continually asks user for input until a valid input is given.
+        Input must be a single alphabetical character (letter) and it must
+        not have been guessed yet. If this criteria is fulfilled, the
+        check_guess() method is called. """
+        
         while True:
             user_guess = input("Your guess: ").lower()
             if not user_guess.isalpha() or len(user_guess) != 1:
