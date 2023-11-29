@@ -7,7 +7,7 @@ class Hangman:
         self.word = random.choice(word_list)
         self.word_guessed = ["_" for letter in self.word]
         self.list_of_guesses = []
-        # self.num_unguessed_letters = len([letter for letter not in ])
+        self.letters_to_guess = len(set(self.word))
 
 
     def check_guess(self, guess):
@@ -21,7 +21,8 @@ class Hangman:
             for idx, letter in enumerate(self.word):
                 if guess == letter:
                     self.word_guessed[idx] = guess
-            # reduce num_letters by 1?
+            self.letters_to_guess -= 1
+            print(self.word_guessed)
         else:
             print(f"Wrong guess! '{guess}' is not in the word.")
             self.num_lives -= 1
@@ -33,7 +34,7 @@ class Hangman:
         Input must be a single alphabetical character (letter) and it must
         not have been guessed yet. If this criteria is fulfilled, the
         check_guess() method is called. """
-        
+
         while True:
             user_guess = input("Your guess: ").lower()
             if not user_guess.isalpha() or len(user_guess) != 1:
@@ -43,10 +44,23 @@ class Hangman:
             else:
                 self.check_guess(user_guess)
                 self.list_of_guesses.append(user_guess)
+                break
 
 
+def play_game(word_list):
+    num_lives = 5
+    game = Hangman(word_list=word_list, num_lives=num_lives)
+    while True:
+        if game.num_lives == 0:
+            print("You lost!")
+            break
+        elif game.letters_to_guess != 0:
+            game.ask_for_input()
+            print("Input func exec")
+        else:
+            print(f"Congratulations! You guessed the word, it was: {game.word}")
+            break
 
-word_list = ["apple", "banana", "kiwi", "passionfruit", "lychee"]
-game1 = Hangman(word_list=word_list)
-print('f')
-# game1.ask_for_input()
+
+play_game(["apple", "banana", "kiwi", "passionfruit", "lychee"])
+# print("f")
