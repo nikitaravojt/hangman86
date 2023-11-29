@@ -5,7 +5,7 @@ class Hangman:
         self.word_list = word_list
         self.num_lives = num_lives
         self.word = random.choice(word_list)
-        self.word_guessed = ["_" for letter in self.word]
+        self.word_guessed = ["_" for _ in self.word]
         self.list_of_guesses = []
         self.letters_to_guess = len(set(self.word))
 
@@ -48,6 +48,8 @@ class Hangman:
 
 
 def play_game(word_list):
+    """Function to initialise a game object and begin the game. Requires
+    word_list list as input."""
     num_lives = 5
     game = Hangman(word_list=word_list, num_lives=num_lives)
     while True:
@@ -56,11 +58,9 @@ def play_game(word_list):
             break
         elif game.letters_to_guess != 0:
             game.ask_for_input()
-            print("Input func exec")
         else:
             print(f"Congratulations! You guessed the word, it was: {game.word}")
             break
 
 
 play_game(["apple", "banana", "kiwi", "passionfruit", "lychee"])
-# print("f")
